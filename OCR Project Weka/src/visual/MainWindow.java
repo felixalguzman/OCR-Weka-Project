@@ -12,7 +12,12 @@ import java.io.IOException;
  * Created by eduardo on 02/07/17.
  */
 public class MainWindow extends JFrame {
-    public MainWindow ()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MainWindow ()
     {
         this.setVisible(true);
         this.setSize(200,200);
