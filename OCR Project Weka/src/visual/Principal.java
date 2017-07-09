@@ -65,7 +65,7 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(5, 5, 1431, 819);
+		tabbedPane.setBounds(5, 5, 1432, 819);
 		contentPane.add(tabbedPane);
 		
 		JPanel panel = new JPanel();
@@ -93,7 +93,7 @@ public class Principal extends JFrame {
 		panel_1.setBorder(new TitledBorder(null, "Seleccionar Imagen a Procesar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		tabbedPane.addTab("Procesar", null, panel_1, null);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] {89, 427, 68, 147, 80};
+		gbl_panel_1.columnWidths = new int[] {89, 173, 68, 100, 80};
 		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
