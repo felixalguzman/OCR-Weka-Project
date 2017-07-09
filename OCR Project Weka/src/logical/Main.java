@@ -11,7 +11,7 @@ public class Main {
 
 		MainWindow m = new MainWindow();
 		System.out.println("\n \n \n");
-		crearDataset();
+		//crearDataset();
 
 	}
 	
