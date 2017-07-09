@@ -8,9 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by eduardo on 02/07/17.
- */
+
 public class MainWindow extends JFrame {
     public MainWindow ()
     {
