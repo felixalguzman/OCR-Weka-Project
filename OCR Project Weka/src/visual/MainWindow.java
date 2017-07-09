@@ -34,7 +34,7 @@ public class MainWindow extends JFrame {
     }
 
     public static void trainTheShit(){
-        File dir = new File("/home/eduardo/Documents/weka-java-google/train-data");
+        File dir = new File("Training/");
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
