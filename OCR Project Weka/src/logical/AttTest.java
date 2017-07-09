@@ -1,5 +1,8 @@
 package logical;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.FastVector;
@@ -59,5 +62,13 @@ public class AttTest {
      
     // 4. output data
     System.out.println(data);
+    
+    try{
+	    PrintWriter writer = new PrintWriter("training.arff", "UTF-8");
+	    writer.println(data);
+	    writer.close();
+	} catch (IOException e) {
+	   // do something
+	}
   }
 }

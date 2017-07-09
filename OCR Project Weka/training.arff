@@ -1,0 +1,10 @@
+@relation 'Objeto de Instancias'
+
+@attribute Colores {Rojo,Azul,Amarillo}
+@attribute Binario numeric
+@attribute Clase {Si,No}
+
+@data
+Rojo,1,Si
+Azul,0,No
+?,?,?
