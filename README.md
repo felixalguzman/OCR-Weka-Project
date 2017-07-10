@@ -1,4 +1,4 @@
-# OCR-Weka-Project
+# OCR Weka Project
 
 
 ## Proyecto final de la materia Mineria de Datos.
