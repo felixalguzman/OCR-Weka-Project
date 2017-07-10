@@ -54,7 +54,7 @@ public class MainWindow extends JFrame {
         } catch (IOException e) {
 
         }
-        img = resize(img,60,60);
+        img = resize(img,40,40);
 
         byte[][] pixels = new byte[img.getWidth()][];
         byte[] second = new byte[img.getWidth()*img.getHeight()];
