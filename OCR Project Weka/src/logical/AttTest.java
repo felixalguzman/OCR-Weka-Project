@@ -16,17 +16,27 @@ import weka.core.Instances;
  */
 @SuppressWarnings("deprecation")
 public class AttTest {
+	
   public static void main(String[] args) throws Exception {
 	  
 	  FastVector atributos = new FastVector(3);
 	 
     //1. Inicializar los atributos
 	// Declaracion de atributo nominal y sus posibles valores
-	  FastVector fvColoresVal = new FastVector(3);
-	  fvColoresVal.addElement("Rojo");
-	  fvColoresVal.addElement("Azul");
-	  fvColoresVal.addElement("Amarillo");
-	  Attribute at1 = new Attribute("Colores", fvColoresVal);
+	  
+	  String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+	  String[] alphabetMayuscula = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "G", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+	  
+	  FastVector<String> fvLetrasMinusculasVal = new FastVector(alphabetMinuscula.length);
+	  
+	  for(int i=0; i < alphabetMinuscula.length; i++)
+	  {
+		  fvLetrasMinusculasVal.addElement(alphabetMinuscula[i]);
+		  
+	  }
+	  
+	
+	  Attribute at1 = new Attribute("Minusculas", fvLetrasMinusculasVal);
 	  
 	  Attribute at2 = new Attribute("Binario");
 	  
