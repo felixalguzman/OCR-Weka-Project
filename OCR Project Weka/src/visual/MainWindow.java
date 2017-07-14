@@ -1,9 +1,12 @@
 package visual;
 
 import javax.imageio.ImageIO;
+
 import javax.swing.*;
 
 import org.apache.commons.compress.utils.Charsets;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import sun.nio.cs.StandardCharsets;
 
@@ -13,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+
 
 
 public class MainWindow extends JFrame {
@@ -38,17 +42,17 @@ public class MainWindow extends JFrame {
 
         return dimg;
     }*/
-   // @param sbi image to scale
-    //* @param imageType type of image
-    //* @param dWidth width of destination image
-   // * @param dHeight height of destination image
-    //* @param fWidth x-factor for transformation / scaling
-   //* @param fHeight y-factor for transformation / scaling
-   // * @return scaled image
-    		
-   /* public static BufferedImage scale(BufferedImage sbi, int dWidth, int dHeight, double fWidth, double fHeight) {
+	// @param sbi image to scale
+	//* @param imageType type of image
+	//* @param dWidth width of destination image
+	// * @param dHeight height of destination image
+	//* @param fWidth x-factor for transformation / scaling
+	//* @param fHeight y-factor for transformation / scaling
+	// * @return scaled image
+
+	/* public static BufferedImage scale(BufferedImage sbi, int dWidth, int dHeight, double fWidth, double fHeight) {
         BufferedImage dbi = null;
-        
+
         if(sbi != null) {
             dbi = new BufferedImage(dWidth, dHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = dbi.createGraphics();
@@ -57,17 +61,17 @@ public class MainWindow extends JFrame {
         }
         return dbi;
     }*/
-    
-    public static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
-        BufferedImage scaledImage = null;
-        if (imageToScale != null) {
-            scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
-            Graphics2D graphics2D = scaledImage.createGraphics();
-            graphics2D.drawImage(imageToScale, 0, 0, dWidth, dHeight, null);
-            graphics2D.dispose();
-        }
-        return scaledImage;
-    }
+
+	public static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+		BufferedImage scaledImage = null;
+		if (imageToScale != null) {
+			scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
+			Graphics2D graphics2D = scaledImage.createGraphics();
+			graphics2D.drawImage(imageToScale, 0, 0, dWidth, dHeight, null);
+			graphics2D.dispose();
+		}
+		return scaledImage;
+	}
 	/*
 	public static BufferedImage resize(BufferedImage img, double fWidth, double fHeight){
 		BufferedImage bffImage = null;
@@ -90,36 +94,44 @@ public class MainWindow extends JFrame {
 
 				//String matrix = new String(getBinaryStringFromImage(child), Charsets.UTF_8);
 
-				getBinaryStringFromImage(child);
+				String nub = getBinaryStringFromImage(child);
 
-				//System.out.print("\n\n"+matrix +"\n");
+				System.out.print("\n\n"+ nub +"\n");
 			}
 		} else {
 
 		}
 	}
 
-	public static void getBinaryStringFromImage(File imageFile){
+	public static String getBinaryStringFromImage(File imageFile){
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(imageFile);
 		} catch (IOException e) {
 		}
 
-		img = scale(img, 40, 40);
-		createImage(img);
-		
+		img = scale(img,4,4);
 		byte[][] pixels = new byte[img.getWidth()][];
+		 byte[] second = new byte[img.getWidth()*img.getHeight()];
 
-		for (int x = 0; x < img.getHeight(); x++) {
+		for (int x = 0; x < img.getWidth(); x++) {
 			pixels[x] = new byte[img.getHeight()];
-			for (int y = 0; y < img.getWidth(); y++) {
+			for (int y = 0; y < img.getHeight(); y++) {
 				pixels[x][y] = (byte) (img.getRGB(x, y) == 0xFFFFFFFF ? 0 : 1);
-				System.out.print(pixels[x][y]);
+				second[x*y]=(byte) (img.getRGB(x, y) == 0xFFFFFFFF ? 0 : 1);
+				//ArrayUtils.addAll(array1,array2)
+				//System.out.print(pixels[x][y]);
 			}
-			System.out.println("");
+			//System.out.println("");
 		}
+		String imageDataString = encodeImage(second);
+
+		return imageDataString;
 	}
+
+	public static String encodeImage(byte[] imageByteArray) {
+        return Base64.encode(imageByteArray);
+    }
 
 	public static void createImage(BufferedImage img){
 		try{
@@ -163,19 +175,6 @@ public class MainWindow extends JFrame {
         return second;
     }*/
 
-	public static String agregarComas(String cad)
-	{
-		String result = "";
-
-		char[] arr = cad.toCharArray();
-
-		for(int i=0; i <arr.length;i++)
-		{
-			result += arr[i] + ",";
-		}
-		System.out.println(result);
-		return result;
-
-	}
+	
 }
 
