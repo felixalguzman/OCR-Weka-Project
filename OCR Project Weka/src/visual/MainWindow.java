@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Collection;
 
 import weka.core.Attribute;
 import weka.core.DenseInstance;
@@ -138,9 +139,17 @@ public class MainWindow extends JFrame {
 
 
 		//2.Crear la clase
-		FastVector fvClassVal = new FastVector(1);
-		fvClassVal.addElement("Letra");
-		Attribute ClassAttribute = new Attribute("Clase", fvClassVal);
+		
+		 String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+		 String[] alphabetMayuscula = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","Ñ" , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+		  
+		 FastVector letra =  new FastVector(alphabetMayuscula.length+alphabetMinuscula.length);
+		
+		 letra.appendElements(Arrays.asList(alphabetMayuscula));
+		 letra.appendElements(Arrays.asList(alphabetMinuscula));
+		 
+		 
+		Attribute ClassAttribute = new Attribute("Letra", letra);
 
 		att.add(ClassAttribute);
 		//2.Crear objeto con las instancias
