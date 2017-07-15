@@ -116,22 +116,25 @@ public class MainWindow extends JFrame {
 	}
 
 	@SuppressWarnings({ "rawtypes", "deprecation", "unchecked" })
-	public void crearARFF(int[] arr)
-	{
+	public void crearARFF(int[] arr){
 		//1. Inicializar los atributos
 		// Declaracion de atributo nominal y sus posibles valores
-
 		FastVector atributos = new FastVector(arr.length);
-
-		for(int i=0; i <  arr.length; i++)
-		{
+		
+		for(int i=0; i <  arr.length; i++){
 			atributos.addElement("Pixel "+i);
-
 		}
 		
 		 Attribute pixels = new Attribute("Pixels", atributos);
 		 
-
+		 
+		//2.Crear la clase
+		 FastVector fvClassVal = new FastVector(1);
+		 fvClassVal.addElement("Letra");
+		 Attribute ClassAttribute = new Attribute("Clase", fvClassVal);
+		 
+		//2.Crear objeto con las instancias
+	     Instances data = new Instances("Objeto de Instancias", atributos, 0);
 	}
 }
 
