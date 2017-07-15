@@ -143,8 +143,7 @@ public class MainWindow extends JFrame {
 		FastVector att = new FastVector();
 		Attribute pixels = null ;
 
-		atributos.addElement("0");
-		atributos.addElement("1");
+	
 		for(int i=0; i <  arr.length; i++){
 
 			pixels = new Attribute("Pixels "+i, atributos);
@@ -201,6 +200,7 @@ public class MainWindow extends JFrame {
 			inst1.setValue(i, arr[i]);
 			
 		}
+		
 		
 		return inst1;
 	}
