@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 
 
@@ -92,30 +93,22 @@ public class MainWindow extends JFrame {
 		if (directoryListing != null) {
 			for (File child : directoryListing) {
 
-				//String matrix = new String(getBinaryStringFromImage(child), Charsets.UTF_8);
-
-				int[] nub = getBinaryStringFromImage(child);
-				for(int i =0; i < nub.length;i++)
-				{
-					System.out.print(nub[i] );
-				}
-
+				getBinaryStringFromImage(child);
 				System.out.println("\n\n\n");
-
 			}
 		} else {
 
 		}
 	}
 
-	public static int[] getBinaryStringFromImage(File imageFile){
+	public static void getBinaryStringFromImage(File imageFile){
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(imageFile);
 		} catch (IOException e) {
 		}
-		int[] num = new int[40*40];
 		img = scale(img,40,40);
+		int[] num = new int[img.getWidth()*img.getHeight()];
 		byte[][] pixels = new byte[img.getWidth()][];
 		Byte[] second = new Byte[img.getWidth()*img.getHeight()];
 		String imageDataString;
@@ -124,19 +117,12 @@ public class MainWindow extends JFrame {
 			for (int y = 0; y < img.getHeight(); y++) {
 				pixels[x][y] = (byte) (img.getRGB(x, y) == 0xFFFFFFFF ? 0 : 1);
 				second[x*y]=(byte) (img.getRGB(x, y) == 0xFFFFFFFF ? 0 : 1);
-				//ArrayUtils.addAll(array1,array2)
-				//System.out.print(pixels[x][y]);
-
+				num[x*y] = second[x*y].intValue();
 			}
-			//System.out.println("");
 		}
-
-		for(int i=0; i < second.length;i++)
-		{
-			num[i] = second[i].intValue();
+		for (int i = 0; i < num.length; i++) {
+			System.out.println("Posicion "+i+" :"+num[i]);
 		}
-
-		return num;
 	}
 
 
