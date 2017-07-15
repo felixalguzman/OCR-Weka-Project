@@ -1,9 +1,9 @@
 package visual;
 
 import javax.imageio.ImageIO;
+
 import javax.swing.*;
 
-import weka.classifiers.trees.m5.Impurity;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,11 +11,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import weka.core.Attribute;
+import weka.core.DenseInstance;
+import weka.core.FastVector;
+import weka.core.Instance;
+import weka.core.Instances;
+
+
 public class MainWindow extends JFrame {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private final long serialVersionUID = 1L;
 
 	public MainWindow ()
 	{
@@ -24,7 +31,7 @@ public class MainWindow extends JFrame {
 		trainTheShit();
 	}
 
-	public static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+	public   BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
 		BufferedImage scaledImage = null;
 		if (imageToScale != null) {
 			scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
@@ -35,7 +42,7 @@ public class MainWindow extends JFrame {
 		return scaledImage;
 	}
 
-	public static void trainTheShit(){
+	public void trainTheShit(){
 		File dir = new File("Training Images/");
 		File[] directoryListing = dir.listFiles();
 
@@ -44,29 +51,39 @@ public class MainWindow extends JFrame {
 			for (File child : directoryListing) {
 				System.out.println("Arreglo de bits de la imagen "+imageIndex+"\n");
 				imprimirArreglo(getBinaryFromImage(child));
+				String nombre = child.getName();
 				imageIndex++;
 				System.out.println("\n\n\n");
+
+
+				if(imageIndex == 0)
+				{
+					crearARFF(getBinaryFromImage(child));
+				}
 			}
 		} else {
 
 		}
+
+
+
 	}
 
-	public static int[] getBinaryFromImage(File imageFile){
+	public int[] getBinaryFromImage(File imageFile){
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(imageFile);
 		} catch (IOException e) {
 		}
-		
+
 		img = scale(img,40,40);
-		
+
 		byte[][] pixels = new byte[img.getWidth()][];
 		int[] intArray = new int[img.getWidth()*img.getHeight()];
-		
+
 		for (int x = 0; x < img.getWidth(); x++) {
 			pixels[x] = new byte[img.getHeight()];
-			
+
 			for (int y = 0; y < img.getHeight(); y++) {
 				pixels[x][y] = (byte) (img.getRGB(x, y) == 0xFFFFFFFF ? 0 : 1);
 			}
@@ -75,7 +92,7 @@ public class MainWindow extends JFrame {
 		return intArray;
 	}
 
-	public static int[] byteArrayToIntArray(byte[][] byteMatrix,int width,int heigt){
+	public int[] byteArrayToIntArray(byte[][] byteMatrix,int width,int heigt){
 		int[] intArray = new int[width*heigt];
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < heigt; y++) {
@@ -84,18 +101,37 @@ public class MainWindow extends JFrame {
 		}
 		return intArray;
 	}
-	
-	public static void imprimirArreglo(int[] arr){
+
+	public  void imprimirArreglo(int[] arr){
 		System.out.print(Arrays.toString(arr));
 	}
-	
-	public static void createImage(BufferedImage img){
+
+	public void createImage(BufferedImage img){
 		try{
 			File f = new File("C:/Users/felix/git/OCR-Weka-Project/OCR Project Weka/Output.jpg");
 			ImageIO.write(img,"jpg",f);
 		}catch(IOException e){
 			System.out.println(e);
 		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "deprecation", "unchecked" })
+	public void crearARFF(int[] arr)
+	{
+		//1. Inicializar los atributos
+		// Declaracion de atributo nominal y sus posibles valores
+
+		FastVector atributos = new FastVector(arr.length);
+
+		for(int i=0; i <  arr.length; i++)
+		{
+			atributos.addElement("Pixel "+i);
+
+		}
+		
+		 Attribute pixels = new Attribute("Pixels", atributos);
+		 
+
 	}
 }
 
