@@ -94,26 +94,31 @@ public class MainWindow extends JFrame {
 
 				//String matrix = new String(getBinaryStringFromImage(child), Charsets.UTF_8);
 
-				String nub = getBinaryStringFromImage(child);
+				int[] nub = getBinaryStringFromImage(child);
+				for(int i =0; i < nub.length;i++)
+				{
+					System.out.print(nub[i] );
+				}
 
-				System.out.print("\n\n"+ nub +"\n");
+				System.out.println("\n\n\n");
+
 			}
 		} else {
 
 		}
 	}
 
-	public static String getBinaryStringFromImage(File imageFile){
+	public static int[] getBinaryStringFromImage(File imageFile){
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(imageFile);
 		} catch (IOException e) {
 		}
-
-		img = scale(img,4,4);
+		int[] num = new int[40*40];
+		img = scale(img,40,40);
 		byte[][] pixels = new byte[img.getWidth()][];
-		 byte[] second = new byte[img.getWidth()*img.getHeight()];
-
+		Byte[] second = new Byte[img.getWidth()*img.getHeight()];
+		String imageDataString;
 		for (int x = 0; x < img.getWidth(); x++) {
 			pixels[x] = new byte[img.getHeight()];
 			for (int y = 0; y < img.getHeight(); y++) {
@@ -121,17 +126,40 @@ public class MainWindow extends JFrame {
 				second[x*y]=(byte) (img.getRGB(x, y) == 0xFFFFFFFF ? 0 : 1);
 				//ArrayUtils.addAll(array1,array2)
 				//System.out.print(pixels[x][y]);
+
 			}
 			//System.out.println("");
 		}
-		String imageDataString = encodeImage(second);
 
-		return imageDataString;
+		for(int i=0; i < second.length;i++)
+		{
+			num[i] = second[i].intValue();
+		}
+
+		return num;
 	}
 
-	public static String encodeImage(byte[] imageByteArray) {
-        return Base64.encode(imageByteArray);
-    }
+
+	public static String toString(byte[][] M) {
+		String separator = ", ";
+		StringBuffer result = new StringBuffer();
+
+		// iterate over the first dimension
+		for (int i = 0; i < M.length; i++) {
+			// iterate over the second dimension
+			for(int j = 0; j < M[i].length; j++){
+				result.append(M[i][j]);
+				result.append(separator);
+			}
+			// remove the last separator
+			result.setLength(result.length() - separator.length());
+			// add a line break.
+			result.append("\n");
+		}
+
+
+		return result.toString();
+	}
 
 	public static void createImage(BufferedImage img){
 		try{
@@ -175,6 +203,6 @@ public class MainWindow extends JFrame {
         return second;
     }*/
 
-	
+
 }
 
