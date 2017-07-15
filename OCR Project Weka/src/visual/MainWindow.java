@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 import weka.core.Attribute;
@@ -23,6 +24,7 @@ public class MainWindow extends JFrame {
 	 * 
 	 */
 	private final long serialVersionUID = 1L;
+
 
 	public MainWindow ()
 	{
@@ -52,14 +54,17 @@ public class MainWindow extends JFrame {
 				System.out.println("Arreglo de bits de la imagen "+imageIndex+"\n");
 				imprimirArreglo(getBinaryFromImage(child));
 				String nombre = child.getName();
-				imageIndex++;
+
 				System.out.println("\n\n\n");
 
 
 				if(imageIndex == 0)
 				{
+
 					crearARFF(getBinaryFromImage(child));
 				}
+				imageIndex++;
+
 			}
 		} else {
 
@@ -116,25 +121,42 @@ public class MainWindow extends JFrame {
 	}
 
 	@SuppressWarnings({ "rawtypes", "deprecation", "unchecked" })
-	public void crearARFF(int[] arr){
+	public static void crearARFF(int[] arr){
 		//1. Inicializar los atributos
 		// Declaracion de atributo nominal y sus posibles valores
 		FastVector atributos = new FastVector(arr.length);
-		
+		FastVector att = new FastVector();
+		Attribute pixels = null ;
+
+		atributos.addElement("0");
+		atributos.addElement("1");
 		for(int i=0; i <  arr.length; i++){
-			atributos.addElement("Pixel "+i);
+
+			pixels = new Attribute("Pixels "+i, atributos);
+			att.add(pixels);
 		}
-		
-		 Attribute pixels = new Attribute("Pixels", atributos);
-		 
-		 
+
+
 		//2.Crear la clase
-		 FastVector fvClassVal = new FastVector(1);
-		 fvClassVal.addElement("Letra");
-		 Attribute ClassAttribute = new Attribute("Clase", fvClassVal);
-		 
+		FastVector fvClassVal = new FastVector(1);
+		fvClassVal.addElement("Letra");
+		Attribute ClassAttribute = new Attribute("Clase", fvClassVal);
+
+		att.add(ClassAttribute);
 		//2.Crear objeto con las instancias
-	     Instances data = new Instances("Objeto de Instancias", atributos, 0);
+		Instances data = new Instances("Objeto de Instancias", att, 0);
+
+
+		System.out.println(data.attribute(0));
+
+		try{
+			PrintWriter writer = new PrintWriter("training.arff", "UTF-8");
+			writer.println(data);
+			writer.close();
+		} catch (IOException e) {
+			// do something
+		}
+
 	}
 }
 
