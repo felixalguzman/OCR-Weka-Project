@@ -7,7 +7,10 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -18,6 +21,7 @@ import weka.core.DenseInstance;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.converters.ArffLoader.ArffReader;
 
 
 public class MainWindow extends JFrame {
@@ -48,7 +52,7 @@ public class MainWindow extends JFrame {
 	public void trainTheShit(){
 		File dir = new File("Training Images/");
 		File[] directoryListing = dir.listFiles();
-
+		Instances data = null;
 		if (directoryListing != null) {
 			int imageIndex =0;
 			for (File child : directoryListing) {
@@ -63,10 +67,20 @@ public class MainWindow extends JFrame {
 				{
 
 					crearARFF(getBinaryFromImage(child));
+					try {
+						data = cargarARFF("training.arff", directoryListing.length);
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				imageIndex++;
+				data.add(insertarInstancia(getBinaryFromImage(child)));
 
 			}
+			
+			guardarARFF(data);
 		} else {
 
 		}
@@ -139,16 +153,16 @@ public class MainWindow extends JFrame {
 
 
 		//2.Crear la clase
-		
-		 String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-		 String[] alphabetMayuscula = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","Ñ" , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-		  
-		 FastVector letra =  new FastVector(alphabetMayuscula.length+alphabetMinuscula.length);
-		
-		 letra.appendElements(Arrays.asList(alphabetMayuscula));
-		 letra.appendElements(Arrays.asList(alphabetMinuscula));
-		 
-		 
+
+		String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+		String[] alphabetMayuscula = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","Ñ" , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+		FastVector letra =  new FastVector(alphabetMayuscula.length+alphabetMinuscula.length);
+
+		letra.appendElements(Arrays.asList(alphabetMayuscula));
+		letra.appendElements(Arrays.asList(alphabetMinuscula));
+
+
 		Attribute ClassAttribute = new Attribute("Letra", letra);
 
 		att.add(ClassAttribute);
@@ -166,6 +180,40 @@ public class MainWindow extends JFrame {
 			// do something
 		}
 
+	}
+
+	public Instances cargarARFF(String ruta, int cant) throws IOException
+	{
+		BufferedReader reader = new BufferedReader(new FileReader(ruta));
+		ArffReader arff = new ArffReader(reader, cant);
+		Instances data = arff.getData();
+		
+		return data;
+	}
+	
+	public Instance insertarInstancia(int[] arr)
+	{
+		Instance inst1 = new DenseInstance(arr.length);
+	     
+	   // inst1.setValue((Attribute)atributos.elementAt(0),"Rojo");
+		for(int i =0; i < arr.length; i++)
+		{
+			inst1.setValue(i, arr[i]);
+			
+		}
+		
+		return inst1;
+	}
+	
+	public void guardarARFF(Instances data)
+	{
+		try{
+			PrintWriter writer = new PrintWriter("training.arff", "UTF-8");
+			writer.println(data);
+			writer.close();
+		} catch (IOException e) {
+			// do something
+		}
 	}
 }
 
