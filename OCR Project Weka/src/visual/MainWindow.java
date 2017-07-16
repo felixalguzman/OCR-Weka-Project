@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -29,6 +30,7 @@ public class MainWindow extends JFrame {
 	 * 
 	 */
 	private final long serialVersionUID = 1L;
+	private Instances data = null;
 
 
 	public MainWindow ()
@@ -52,7 +54,7 @@ public class MainWindow extends JFrame {
 	public void trainTheShit(){
 		File dir = new File("Training Images/");
 		File[] directoryListing = dir.listFiles();
-		Instances data = null;
+		
 		if (directoryListing != null) {
 			int imageIndex =0;
 			for (File child : directoryListing) {
@@ -65,6 +67,7 @@ public class MainWindow extends JFrame {
 
 				if(imageIndex == 0)
 				{
+					//data = new Instances("Objeto de instancias", crearARFF(getBinaryFromImage(child)),0);
 
 					crearARFF(getBinaryFromImage(child));
 					try {
@@ -136,12 +139,14 @@ public class MainWindow extends JFrame {
 	}
 
 	@SuppressWarnings({ "rawtypes", "deprecation", "unchecked" })
-	public static void crearARFF(int[] arr){
+	public static FastVector crearARFF(int[] arr){
 		//1. Inicializar los atributos
 		// Declaracion de atributo nominal y sus posibles valores
 		FastVector atributos = new FastVector(arr.length);
 		FastVector att = new FastVector();
 		Attribute pixels = null ;
+		atributos.addElement("0");
+		atributos.addElement("1");
 
 	
 		for(int i=0; i <  arr.length; i++){
@@ -178,7 +183,8 @@ public class MainWindow extends JFrame {
 		} catch (IOException e) {
 			// do something
 		}
-
+		
+		return att;
 	}
 
 	public Instances cargarARFF(String ruta, int cant) throws IOException
