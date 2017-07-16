@@ -60,13 +60,10 @@ public class MainWindow extends JFrame {
 			for (File child : directoryListing) {
 				System.out.println("Arreglo de bits de la imagen "+imageIndex+"\n");
 				imprimirArreglo(getBinaryFromImage(child));
-				String nombre = child.getName();
-
 				System.out.println("\n\n\n");
 
 
-				if(imageIndex == 0)
-				{
+				if(imageIndex == 0){
 					//data = new Instances("Objeto de instancias", crearARFF(getBinaryFromImage(child)),0);
 
 					crearARFF(getBinaryFromImage(child));
@@ -80,7 +77,6 @@ public class MainWindow extends JFrame {
 				}
 				imageIndex++;
 				data.add(insertarInstancia(getBinaryFromImage(child)));
-
 			}
 			
 			guardarARFF(data);
@@ -196,8 +192,7 @@ public class MainWindow extends JFrame {
 		return data;
 	}
 	
-	public Instance insertarInstancia(int[] arr)
-	{
+	public Instance insertarInstancia(int[] arr){
 		Instance inst1 = new DenseInstance(arr.length);
 	     
 	   // inst1.setValue((Attribute)atributos.elementAt(0),"Rojo");
@@ -206,7 +201,7 @@ public class MainWindow extends JFrame {
 			inst1.setValue(i, arr[i]);
 			
 		}
-		
+		//inst1.setValue(arr.length,clase);
 		
 		return inst1;
 	}
@@ -220,6 +215,10 @@ public class MainWindow extends JFrame {
 		} catch (IOException e) {
 			// do something
 		}
+	}
+	public String obtenerClase(File f ){
+		String clase = new String(f.getName().substring(0,1));
+		return clase;
 	}
 }
 
