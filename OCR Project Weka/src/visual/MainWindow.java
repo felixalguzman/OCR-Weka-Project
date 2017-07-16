@@ -106,7 +106,9 @@ public class MainWindow extends JFrame {
 
 			for (int y = 0; y < img.getHeight(); y++) {
 				pixels[x][y] = (byte) (img.getRGB(x, y) == 0xFFFFFFFF ? 0 : 1);
+				System.out.print(pixels[x][y]);
 			}
+			System.out.println("\n");
 		}
 		intArray = byteArrayToIntArray(pixels, img.getWidth(), img.getHeight());
 		return intArray;
