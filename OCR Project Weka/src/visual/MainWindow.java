@@ -76,7 +76,8 @@ public class MainWindow extends JFrame {
 					}
 				}
 				imageIndex++;
-				data.add(insertarInstancia(getBinaryFromImage(child)));
+				System.out.println("Clase " + obtenerClase(child));
+				data.add(insertarInstancia(getBinaryFromImage(child), obtenerClase(child), data));
 			}
 			
 			guardarARFF(data);
@@ -188,20 +189,31 @@ public class MainWindow extends JFrame {
 		BufferedReader reader = new BufferedReader(new FileReader(ruta));
 		ArffReader arff = new ArffReader(reader, cant);
 		Instances data = arff.getData();
-		
+		//data.setClassIndex(data.numAttributes()-1);
 		return data;
 	}
 	
-	public Instance insertarInstancia(int[] arr){
-		Instance inst1 = new DenseInstance(arr.length);
+	public Instance insertarInstancia(int[] arr,String clase, Instances data){
+		Instance inst1 = new DenseInstance(arr.length+1);
+		String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+		String[] alphabetMayuscula = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","Ñ" , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+		FastVector letra =  new FastVector(alphabetMayuscula.length+alphabetMinuscula.length);
+
+		letra.appendElements(Arrays.asList(alphabetMayuscula));
+		letra.appendElements(Arrays.asList(alphabetMinuscula));
 	     
+		inst1.setDataset(data);
 	   // inst1.setValue((Attribute)atributos.elementAt(0),"Rojo");
 		for(int i =0; i < arr.length; i++)
 		{
 			inst1.setValue(i, arr[i]);
 			
 		}
-		//inst1.setValue(arr.length,clase);
+		
+		
+		inst1.setValue(arr.length, clase);
+			
 		
 		return inst1;
 	}
