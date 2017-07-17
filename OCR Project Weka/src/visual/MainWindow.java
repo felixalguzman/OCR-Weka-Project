@@ -58,9 +58,9 @@ public class MainWindow extends JFrame {
 		if (directoryListing != null) {
 			int imageIndex =0;
 			for (File child : directoryListing) {
-				System.out.println("Arreglo de bits de la imagen "+imageIndex+"\n");
-				imprimirArreglo(getBinaryFromImage(child));
-				System.out.println("\n\n\n");
+				//System.out.println("Arreglo de bits de la imagen "+imageIndex+"\n");
+				//imprimirArreglo(getBinaryFromImage(child));
+				//System.out.println("\n\n\n");
 
 
 				if(imageIndex == 0){
@@ -77,10 +77,10 @@ public class MainWindow extends JFrame {
 				}
 				imageIndex++;
 				System.out.println("Clase " + obtenerClase(child));
-				data.add(insertarInstancia(getBinaryFromImage(child), obtenerClase(child), data));
+				//data.add(insertarInstancia(getBinaryFromImage(child), obtenerClase(child), data));
 			}
 			
-			guardarARFF(data);
+			//guardarARFF(data);
 		} else {
 
 		}
@@ -106,9 +106,9 @@ public class MainWindow extends JFrame {
 
 			for (int y = 0; y < img.getHeight(); y++) {
 				pixels[x][y] = (byte) (img.getRGB(x, y) == 0xFFFFFFFF ? 0 : 1);
-				System.out.print(pixels[x][y]);
+				//System.out.print(pixels[x][y]);
 			}
-			System.out.println("\n");
+			//System.out.println("\n");
 		}
 		intArray = byteArrayToIntArray(pixels, img.getWidth(), img.getHeight());
 		return intArray;
@@ -157,8 +157,8 @@ public class MainWindow extends JFrame {
 
 		//2.Crear la clase
 
-		String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-		String[] alphabetMayuscula = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","Ñ" , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+		String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ene", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+		String[] alphabetMayuscula = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","ENE" , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
 		FastVector letra =  new FastVector(alphabetMayuscula.length+alphabetMinuscula.length);
 
@@ -197,8 +197,8 @@ public class MainWindow extends JFrame {
 	
 	public Instance insertarInstancia(int[] arr,String clase, Instances data){
 		Instance inst1 = new DenseInstance(arr.length+1);
-		String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-		String[] alphabetMayuscula = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","Ñ" , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+		String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ene", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+		String[] alphabetMayuscula = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","ENE" , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
 		FastVector letra =  new FastVector(alphabetMayuscula.length+alphabetMinuscula.length);
 
@@ -231,7 +231,27 @@ public class MainWindow extends JFrame {
 		}
 	}
 	public String obtenerClase(File f ){
-		String clase = new String(f.getName().substring(0,1));
+		String clase = null;
+		System.out.println(f.getName());
+		
+		if(f.getName().substring(0, 2).equalsIgnoreCase("ENE") )
+		{
+			clase = "ENE";
+			System.out.println(clase);
+		}
+		else if(f.getName().substring(0, 2).equalsIgnoreCase("ene") )
+		{
+			clase = "ene";
+			System.out.println(clase);
+		}
+		else
+		{
+			clase = f.getName().substring(0,1);
+			System.out.println(clase);
+		}
+			
+			
+		
 		return clase;
 	}
 }
