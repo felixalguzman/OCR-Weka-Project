@@ -16,6 +16,7 @@ import javax.swing.Timer;
 import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import net.miginfocom.swing.MigLayout;
+import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.functions.SMO;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
@@ -439,15 +440,37 @@ public class Principal extends JFrame {
 		return clase;
 	}
 	
-	public void predecirCaracteres() throws IOException
+	public String predecirCaracteres() throws Exception
 	{
+		String resultados = "";
 		 BufferedReader datafile = readDatafile("training.arff");
 	        Instances data = new Instances(datafile);
 	        datafile.close();
 	        
 	        data.setClassIndex(data.numAttributes()-1);
-	        
+	       
 	        SMO smo = new SMO();
+	        smo.buildClassifier(data);
+	        
+	        resultados+="===================\n";
+	        resultados+="Actual Class, J48 Predicted\n";
+	        
+	        for(int i=0; i < data.numInstances();i++)
+	        {
+	        	double actualClass = data.instance(i).classValue();
+				String actual = data.classAttribute().value((int)actualClass);
+
+				Instance newInt = data.instance(i);
+
+				double pred = smo.classifyInstance(newInt);
+				String predString = data.classAttribute().value((int)pred);
+	        }
+	        Evaluation eval = new Evaluation(data);
+	        eval.evaluateModel(smo,  data);
+	        
+	        //System.out.println(arg0);
+	        
+	        return resultados;
 	        
 	}
 	
