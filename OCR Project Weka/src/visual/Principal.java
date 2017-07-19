@@ -303,7 +303,7 @@ public class Principal extends JFrame {
 		clasificadorNB.setSelected(false);
 		classificadorSMO.setSelected(false);
 		
-		resize("Training Images/");
+		//resize("Paints/");
 
 	}
 
