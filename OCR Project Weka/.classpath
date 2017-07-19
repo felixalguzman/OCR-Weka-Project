@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Program Files/Weka-3-9/weka.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eric/git/OCR-Weka-Project/OCR Project Weka/miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Felix Guzman/git/OCR-Weka-Project/OCR Project Weka/miglayout15-swing.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/eric/AppData/Roaming/Skype/My Skype Received Files/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Felix Guzman/git/OCR-Weka-Project/OCR Project Weka/jgoodies-forms-1.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

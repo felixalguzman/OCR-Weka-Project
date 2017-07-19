@@ -45,6 +45,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -85,7 +86,7 @@ public class Principal extends JFrame {
 	private JRadioButton clasificadorNB;
 	private JRadioButton clasificadorJ48;
 	private JTextArea textArea;
-
+	private JScrollPane scrollPane_1 ;
 	/**
 	 * Launch the application.
 	 */
@@ -199,7 +200,7 @@ public class Principal extends JFrame {
 				}
 				else if(clasificadorJ48.isSelected() || clasificadorNB.isSelected() || classificadorSMO.isSelected())
 				{
-					vacio = true;
+					vacio = false;
 					entrenar(carpetaImagenesPrueba.getText(), prueba, "Clasificado correctamente");
 
 
@@ -287,11 +288,13 @@ public class Principal extends JFrame {
 		panel_1.add(panel_3, "cell 0 6 6 1,grow");
 		panel_3.setLayout(null);
 
-		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane_1.setBounds(12, 23, 600, 491);
 		panel_3.add(scrollPane_1);
+		
+		
 
 		textArea = new JTextArea();
 		scrollPane_1.setViewportView(textArea);
@@ -668,13 +671,17 @@ public class Principal extends JFrame {
 
 		resultados += "\n";
 		resultados += eval.toSummaryString(); // Imprime un resumen de los datos (estadisticas)
+		guardarResultados("resultados.txt", resultados);
 		resultados += "\n";
 		resultados += eval.toClassDetailsString(); // Imprime el detalle por clase
 
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
+		
 		//return resultados;*/
-
+		JOptionPane.showMessageDialog(null, "Clasificado correctamente");
+		textArea.setCaretPosition(0);
+	
 	}
 
 
@@ -725,6 +732,8 @@ public class Principal extends JFrame {
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
 		//return resultados;*/
+		JOptionPane.showMessageDialog(null, "Clasificado correctamente");
+		textArea.setCaretPosition(0);
 
 	}
 
@@ -776,7 +785,23 @@ public class Principal extends JFrame {
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
 		//return resultados;*/
+		JOptionPane.showMessageDialog(null, "Clasificado correctamente");
+		textArea.setCaretPosition(0);
 
+	}
+	
+	public void guardarResultados(String ruta, String datos) throws FileNotFoundException
+	{
+		try{
+				PrintWriter writer = new PrintWriter(ruta, "UTF-8");
+				writer.println(datos);
+				writer.close();
+			} catch (IOException e) {
+				// do something
+			}
+		
+		
+		
 	}
 
 	public  BufferedReader readDatafile(String ruta){

@@ -1,0 +1,69 @@
+
+Resultados 
+=========================
+Clase Actual, Prediccion del SMO
+ Real:  A . Prediccion: A
+Real:  a . Prediccion: A
+Real:  B . Prediccion: B
+Real:  b . Prediccion: b
+Real:  C . Prediccion: C
+Real:  c . Prediccion: c
+Real:  D . Prediccion: D
+Real:  d . Prediccion: d
+Real:  E . Prediccion: X
+Real:  e . Prediccion: e
+Real:  ENE . Prediccion: ENE
+Real:  ene . Prediccion: ene
+Real:  F . Prediccion: C
+Real:  f . Prediccion: J
+Real:  G . Prediccion: G
+Real:  g . Prediccion: B
+Real:  H . Prediccion: H
+Real:  h . Prediccion: b
+Real:  I . Prediccion: I
+Real:  i . Prediccion: t
+Real:  J . Prediccion: U
+Real:  j . Prediccion: b
+Real:  K . Prediccion: K
+Real:  k . Prediccion: k
+Real:  L . Prediccion: L
+Real:  l . Prediccion: l
+Real:  M . Prediccion: M
+Real:  m . Prediccion: m
+Real:  N . Prediccion: N
+Real:  n . Prediccion: p
+Real:  O . Prediccion: O
+Real:  o . Prediccion: o
+Real:  P . Prediccion: P
+Real:  p . Prediccion: h
+Real:  Q . Prediccion: Q
+Real:  q . Prediccion: q
+Real:  R . Prediccion: I
+Real:  r . Prediccion: r
+Real:  S . Prediccion: S
+Real:  s . Prediccion: t
+Real:  T . Prediccion: T
+Real:  t . Prediccion: t
+Real:  U . Prediccion: U
+Real:  u . Prediccion: u
+Real:  V . Prediccion: V
+Real:  v . Prediccion: k
+Real:  W . Prediccion: W
+Real:  w . Prediccion: U
+Real:  X . Prediccion: K
+Real:  x . Prediccion: k
+Real:  Y . Prediccion: Y
+Real:  y . Prediccion: y
+Real:  Z . Prediccion: Z
+Real:  z . Prediccion: r
+
+
+Correctly Classified Instances          36               66.6667 %
+Incorrectly Classified Instances        18               33.3333 %
+Kappa statistic                          0.6604
+Mean absolute error                      0.0357
+Root mean squared error                  0.1328
+Relative absolute error                 98.2345 %
+Root relative squared error             98.5058 %
+Total Number of Instances               54     
+
