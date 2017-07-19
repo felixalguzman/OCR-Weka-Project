@@ -179,72 +179,72 @@ public class Principal extends JFrame {
 		carpetaImagenesPrueba.setEditable(false);
 		panel_1.add(carpetaImagenesPrueba, "cell 1 0 3 1,growx,aligny center");
 		carpetaImagenesPrueba.setColumns(10);
-		
-				JButton btnProcesar = new JButton("Procesar");
-				btnProcesar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
 
-						if(carpetaImagenesPrueba.getText().equalsIgnoreCase("") ||  (!clasificadorJ48.isSelected() && !clasificadorNB.isSelected() && !classificadorSMO.isSelected()))
-						{
+		JButton btnProcesar = new JButton("Procesar");
+		btnProcesar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-							if(carpetaImagenesPrueba.getText().equalsIgnoreCase(""))
-							{
-								JOptionPane.showMessageDialog(null, "Debe elegir la carpeta con imagenes");
-								
-							}
-							else
-							{
-								JOptionPane.showMessageDialog(null, "Debe elegir la carpeta con imagenes y  1 clasificador");
-							}
-						}
-						else if(clasificadorJ48.isSelected() || clasificadorNB.isSelected() || classificadorSMO.isSelected())
-						{
-							vacio = true;
-							entrenar(carpetaImagenesPrueba.getText(), prueba, "Clasificado correctamente");
+				if(carpetaImagenesPrueba.getText().equalsIgnoreCase("") ||  (!clasificadorJ48.isSelected() && !clasificadorNB.isSelected() && !classificadorSMO.isSelected()))
+				{
 
-
-							try {
-								if (classificadorSMO.isSelected() || clasificadorJ48.isSelected() || clasificadorNB.isSelected()) {
-
-									if(classificadorSMO.isSelected())
-									{
-										predecirCaracteresSMO();
-									}
-									else if(clasificadorJ48.isSelected())
-									{
-										predecirCaracteresJ48();
-										
-									}else if(clasificadorNB.isSelected())
-									{
-										predecirCaracteresNB();
-									}
-										
-								}
-								else
-								{
-									JOptionPane.showMessageDialog(null, "Debe elegir 1 clasificador");
-								}
-
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
+					if(carpetaImagenesPrueba.getText().equalsIgnoreCase(""))
+					{
+						JOptionPane.showMessageDialog(null, "Debe elegir la carpeta con imagenes");
 
 					}
-				});
-				
-						btnSeleccionImagen = new JButton("Seleccionar");
-						btnSeleccionImagen.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Debe elegir la carpeta con imagenes y  1 clasificador");
+					}
+				}
+				else if(clasificadorJ48.isSelected() || clasificadorNB.isSelected() || classificadorSMO.isSelected())
+				{
+					vacio = true;
+					entrenar(carpetaImagenesPrueba.getText(), prueba, "Clasificado correctamente");
 
-								seleccionarImagen();
 
+					try {
+						if (classificadorSMO.isSelected() || clasificadorJ48.isSelected() || clasificadorNB.isSelected()) {
 
+							if(classificadorSMO.isSelected())
+							{
+								predecirCaracteresSMO();
 							}
-						});
-						panel_1.add(btnSeleccionImagen, "cell 4 0,alignx right,aligny center");
-				panel_1.add(btnProcesar, "cell 5 0,alignx center,aligny center");
+							else if(clasificadorJ48.isSelected())
+							{
+								predecirCaracteresJ48();
+
+							}else if(clasificadorNB.isSelected())
+							{
+								predecirCaracteresNB();
+							}
+
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "Debe elegir 1 clasificador");
+						}
+
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+
+			}
+		});
+
+		btnSeleccionImagen = new JButton("Seleccionar");
+		btnSeleccionImagen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				seleccionarImagen();
+
+
+			}
+		});
+		panel_1.add(btnSeleccionImagen, "cell 4 0,alignx right,aligny center");
+		panel_1.add(btnProcesar, "cell 5 0,alignx center,aligny center");
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Clasificador", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -302,26 +302,28 @@ public class Principal extends JFrame {
 		clasificadorJ48.setSelected(false);
 		clasificadorNB.setSelected(false);
 		classificadorSMO.setSelected(false);
+		
+		resize("Training Images/");
 
 	}
-	
+
 	public void CreateResizeImage(String path){
-		  File f = new File(path);
-		  File f2 = null;
-		  BufferedImage  bffImg= null;
-		  try {
-		   bffImg = scale(ImageIO.read(f),80,80);
-		  } catch (IOException e) {
-		   e.printStackTrace();
-		  }
-		  f2 = new File(path+f.getName()+"Output.png");
-		  try {
-		   ImageIO.write(bffImg,"png",f2);
-		  } catch (IOException e) {
-		   // TODO Auto-generated catch block
-		   e.printStackTrace();
-		  }
-		 }
+		File f = new File(path);
+		File f2 = null;
+		BufferedImage  bffImg= null;
+		try {
+			bffImg = scale(ImageIO.read(f),80,80);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		f2 = new File(path+f.getName()+"Output.png");
+		try {
+			ImageIO.write(bffImg,"png",f2);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+	}
 
 	public void clasificadoresJ()
 	{
@@ -393,6 +395,28 @@ public class Principal extends JFrame {
 		}
 
 	}
+
+	public void resize(String ruta){
+		File dir = new File(ruta);
+		File[] directoryListing = dir.listFiles();
+
+		if (directoryListing != null) {
+
+
+
+			for (File child : directoryListing) {
+
+				CreateResizeImage(child.getAbsolutePath());
+
+
+			}
+
+
+		}
+
+
+	}
+
 
 	public void entrenar(String ruta, String lugarGuardar, String mensaje){
 		File dir = new File(ruta);
@@ -634,11 +658,11 @@ public class Principal extends JFrame {
 		for(int i =0; i < pruebadataset.numInstances(); i++)
 		{
 			double valorActual = pruebadataset.instance(i).classValue();
-			
+
 			Instance nuevaInstancia = pruebadataset.instance(i);
-			
+
 			double predSMO = smo.classifyInstance(nuevaInstancia);
-			
+
 			resultados += "Real:  " + pruebadataset.classAttribute().value((int)pruebadataset.instance(i).classValue()) + " . Prediccion: " + pruebadataset.classAttribute().value((int)predSMO) + "\n";
 		}
 
@@ -646,14 +670,14 @@ public class Principal extends JFrame {
 		resultados += eval.toSummaryString(); // Imprime un resumen de los datos (estadisticas)
 		resultados += "\n";
 		resultados += eval.toClassDetailsString(); // Imprime el detalle por clase
-		
+
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
 		//return resultados;*/
 
 	}
-	
-	
+
+
 	public void predecirCaracteresJ48() throws Exception
 	{
 
@@ -685,11 +709,11 @@ public class Principal extends JFrame {
 		for(int i =0; i < pruebadataset.numInstances(); i++)
 		{
 			double valorActual = pruebadataset.instance(i).classValue();
-			
+
 			Instance nuevaInstancia = pruebadataset.instance(i);
-			
+
 			double predSMO = j.classifyInstance(nuevaInstancia);
-			
+
 			resultados += "Real:  " + pruebadataset.classAttribute().value((int)pruebadataset.instance(i).classValue()) + " . Prediccion: " + pruebadataset.classAttribute().value((int)predSMO) + "\n";
 		}
 
@@ -697,14 +721,14 @@ public class Principal extends JFrame {
 		resultados += eval.toSummaryString(); // Imprime un resumen de los datos (estadisticas)
 		resultados += "\n";
 		resultados += eval.toClassDetailsString(); // Imprime el detalle por clase
-		
+
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
 		//return resultados;*/
 
 	}
 
-	
+
 	public void predecirCaracteresNB() throws Exception
 	{
 
@@ -731,16 +755,16 @@ public class Principal extends JFrame {
 
 		String resultados = "";
 		resultados += "\nResultados \n=========================\n";
-		resultados += "Clase Actual, Prediccion del J48\n ";
+		resultados += "Clase Actual, Prediccion del Naive Bayes\n ";
 
 		for(int i =0; i < pruebadataset.numInstances(); i++)
 		{
 			double valorActual = pruebadataset.instance(i).classValue();
-			
+
 			Instance nuevaInstancia = pruebadataset.instance(i);
-			
+
 			double predSMO = nb.classifyInstance(nuevaInstancia);
-			
+
 			resultados += "Real:  " + pruebadataset.classAttribute().value((int)pruebadataset.instance(i).classValue()) + " . Prediccion: " + pruebadataset.classAttribute().value((int)predSMO) + "\n";
 		}
 
@@ -748,13 +772,13 @@ public class Principal extends JFrame {
 		resultados += eval.toSummaryString(); // Imprime un resumen de los datos (estadisticas)
 		resultados += "\n";
 		resultados += eval.toClassDetailsString(); // Imprime el detalle por clase
-		
+
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
 		//return resultados;*/
 
 	}
-	
+
 	public  BufferedReader readDatafile(String ruta){
 		BufferedReader inputreader = null;
 
