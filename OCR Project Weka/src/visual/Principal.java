@@ -304,6 +304,24 @@ public class Principal extends JFrame {
 		classificadorSMO.setSelected(false);
 
 	}
+	
+	public void CreateResizeImage(String path){
+		  File f = new File(path);
+		  File f2 = null;
+		  BufferedImage  bffImg= null;
+		  try {
+		   bffImg = scale(ImageIO.read(f),80,80);
+		  } catch (IOException e) {
+		   e.printStackTrace();
+		  }
+		  f2 = new File(path+f.getName()+"Output.png");
+		  try {
+		   ImageIO.write(bffImg,"png",f2);
+		  } catch (IOException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		  }
+		 }
 
 	public void clasificadoresJ()
 	{
