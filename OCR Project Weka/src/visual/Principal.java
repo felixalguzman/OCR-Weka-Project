@@ -67,6 +67,7 @@ import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JCheckBox;
 
 public class Principal extends JFrame {
 
@@ -87,6 +88,8 @@ public class Principal extends JFrame {
 	private JRadioButton clasificadorJ48;
 	private JTextArea textArea;
 	private JScrollPane scrollPane_1 ;
+	private JCheckBox chckbxMinusculas;
+	private JCheckBox chckbxMayusculas;
 	/**
 	 * Launch the application.
 	 */
@@ -128,14 +131,14 @@ public class Principal extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Entrenamiento de Imagenes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		tabbedPane.addTab("Entrenamiento", null, panel, null);
-		panel.setLayout(new MigLayout("", "[64px][279.00px][138px][124px]", "[25px][21.00][]"));
+		panel.setLayout(new MigLayout("", "[53px][279px][138px][124px]", "[23px][23px]"));
 
 		JLabel lblDirectorio = new JLabel("Directorio: ");
 		panel.add(lblDirectorio, "cell 0 0,alignx left,aligny center");
 
 		rutaEntrenamiento = new JTextField();
 		rutaEntrenamiento.setEditable(false);
-		panel.add(rutaEntrenamiento, "cell 1 0,growx,aligny center");
+		panel.add(rutaEntrenamiento, "cell 1 0,growx,aligny bottom");
 		rutaEntrenamiento.setColumns(10);
 
 		JButton btnSeleccionar = new JButton("Seleccionar");
@@ -167,6 +170,12 @@ public class Principal extends JFrame {
 			}
 		});
 		panel.add(btnEntrenar, "cell 3 0,growx,aligny top");
+		
+		chckbxMayusculas = new JCheckBox("Mayusculas");
+		panel.add(chckbxMayusculas, "cell 2 1,alignx left,aligny top");
+		
+		chckbxMinusculas = new JCheckBox("Minusculas");
+		panel.add(chckbxMinusculas, "cell 3 1,alignx left,aligny top");
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Seleccionar carpeta de imagenes", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
