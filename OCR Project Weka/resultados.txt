@@ -2,68 +2,21 @@
 Resultados 
 =========================
 Clase Actual, Prediccion del SMO
- Real:  A . Prediccion: m
-Real:  a . Prediccion: a
-Real:  B . Prediccion: g
-Real:  b . Prediccion: b
-Real:  C . Prediccion: ene
-Real:  c . Prediccion: c
-Real:  D . Prediccion: n
-Real:  d . Prediccion: d
-Real:  E . Prediccion: j
-Real:  e . Prediccion: e
-Real:  ENE . Prediccion: j
-Real:  ene . Prediccion: q
-Real:  F . Prediccion: i
-Real:  f . Prediccion: d
-Real:  G . Prediccion: ene
-Real:  g . Prediccion: a
-Real:  H . Prediccion: d
-Real:  h . Prediccion: b
-Real:  I . Prediccion: t
-Real:  i . Prediccion: t
-Real:  J . Prediccion: y
-Real:  j . Prediccion: b
-Real:  K . Prediccion: y
-Real:  k . Prediccion: k
-Real:  L . Prediccion: i
-Real:  l . Prediccion: l
-Real:  M . Prediccion: m
-Real:  m . Prediccion: m
-Real:  N . Prediccion: m
-Real:  n . Prediccion: p
-Real:  O . Prediccion: m
-Real:  o . Prediccion: o
-Real:  P . Prediccion: p
-Real:  p . Prediccion: o
-Real:  Q . Prediccion: ene
-Real:  q . Prediccion: q
-Real:  R . Prediccion: q
-Real:  r . Prediccion: r
-Real:  S . Prediccion: ene
-Real:  s . Prediccion: t
-Real:  T . Prediccion: l
-Real:  t . Prediccion: t
-Real:  U . Prediccion: m
-Real:  u . Prediccion: u
-Real:  V . Prediccion: w
-Real:  v . Prediccion: k
-Real:  W . Prediccion: w
-Real:  w . Prediccion: w
-Real:  X . Prediccion: f
-Real:  x . Prediccion: k
-Real:  Y . Prediccion: j
-Real:  y . Prediccion: y
-Real:  Z . Prediccion: j
-Real:  z . Prediccion: r
+ Real:  A . Prediccion: Q
+Real:  A . Prediccion: Q
+Real:  A . Prediccion: Q
+Real:  D . Prediccion: l
+Real:  E . Prediccion: i
+Real:  ene . Prediccion: a
+Real:  F . Prediccion: c
 
 
-Correctly Classified Instances          15               27.7778 %
-Incorrectly Classified Instances        39               72.2222 %
-Kappa statistic                          0.2642
+Correctly Classified Instances           0                0      %
+Incorrectly Classified Instances         7              100      %
+Kappa statistic                          0     
 Mean absolute error                      0.0362
-Root mean squared error                  0.1353
-Relative absolute error                 99.5067 %
-Root relative squared error             99.5623 %
-Total Number of Instances               54     
+Root mean squared error                  0.1345
+Relative absolute error                 99.3233 %
+Root relative squared error             99.5622 %
+Total Number of Instances                7     
 
