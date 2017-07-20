@@ -374,7 +374,8 @@ public class Principal extends JFrame {
 		clasificadorNB.setSelected(false);
 		classificadorSMO.setSelected(false);
 		
-		//resize("Paints/");
+		
+		//resize("C:/Users/eric/Desktop/RECONVERTIR");
 
 	}
 
@@ -383,7 +384,7 @@ public class Principal extends JFrame {
 		File f2 = null;
 		BufferedImage  bffImg= null;
 		try {
-			bffImg = scale(ImageIO.read(f),80,80);
+			bffImg = scale(ImageIO.read(f),40,40);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -473,16 +474,11 @@ public class Principal extends JFrame {
 
 		if (directoryListing != null) {
 
-
-
 			for (File child : directoryListing) {
 
 				CreateResizeImage(child.getAbsolutePath());
 
-
 			}
-
-
 		}
 
 
@@ -871,6 +867,8 @@ public class Principal extends JFrame {
 		
 		
 	}
+	
+    
 
 	public  BufferedReader readDatafile(String ruta){
 		BufferedReader inputreader = null;
@@ -882,4 +880,5 @@ public class Principal extends JFrame {
 		}
 		return inputreader;
 	}
+	
 }
