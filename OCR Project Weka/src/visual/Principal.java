@@ -163,16 +163,22 @@ public class Principal extends JFrame {
 					if(chckbxMayusculas.isSelected() && !chckbxMinusculas.isSelected())
 					{
 						rutaEntrenamiento.setText(Mayusculas);
+						rutaEntrenamiento.validate();
+						rutaEntrenamiento.repaint();
 						entrenar(Mayusculas, entrenamiento, "Entrenado correctamente");
 					}
 					else if(!chckbxMayusculas.isSelected() && chckbxMinusculas.isSelected())
 					{
 						rutaEntrenamiento.setText(Minusculas);
+						rutaEntrenamiento.validate();
+						rutaEntrenamiento.repaint();
 						entrenar(Minusculas, entrenamiento, "Entrenado correctamente");
 					}
 					else if(chckbxMayusculas.isSelected() && chckbxMinusculas.isSelected())
 					{
 						rutaEntrenamiento.setText(Todas);
+						rutaEntrenamiento.validate();
+						rutaEntrenamiento.repaint();
 						entrenar(Todas, entrenamiento, "Entrenado correctamente");
 					}
 					else

@@ -28,14 +28,15 @@ Real:  v . Prediccion: v
 Real:  w . Prediccion: w
 Real:  x . Prediccion: x
 Real:  y . Prediccion: y
+Real:  z . Prediccion: z
 
 
-Correctly Classified Instances          25               96.1538 %
-Incorrectly Classified Instances         1                3.8462 %
-Kappa statistic                          0.96  
+Correctly Classified Instances          26               96.2963 %
+Incorrectly Classified Instances         1                3.7037 %
+Kappa statistic                          0.9615
 Mean absolute error                      0.0353
 Root mean squared error                  0.1322
-Relative absolute error                 98.9629 %
-Root relative squared error             98.9075 %
-Total Number of Instances               26     
+Relative absolute error                 98.9519 %
+Root relative squared error             98.8966 %
+Total Number of Instances               27     
 
