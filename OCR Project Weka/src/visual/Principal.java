@@ -162,14 +162,17 @@ public class Principal extends JFrame {
 					vacio = true;
 					if(chckbxMayusculas.isSelected() && !chckbxMinusculas.isSelected())
 					{
+						rutaEntrenamiento.setText(Mayusculas);
 						entrenar(Mayusculas, entrenamiento, "Entrenado correctamente");
 					}
 					else if(!chckbxMayusculas.isSelected() && chckbxMinusculas.isSelected())
 					{
+						rutaEntrenamiento.setText(Minusculas);
 						entrenar(Minusculas, entrenamiento, "Entrenado correctamente");
 					}
 					else if(chckbxMayusculas.isSelected() && chckbxMinusculas.isSelected())
 					{
+						rutaEntrenamiento.setText(Todas);
 						entrenar(Todas, entrenamiento, "Entrenado correctamente");
 					}
 					else

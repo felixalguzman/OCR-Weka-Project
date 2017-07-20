@@ -2,68 +2,40 @@
 Resultados 
 =========================
 Clase Actual, Prediccion del SMO
- Real:  A . Prediccion: A
-Real:  a . Prediccion: a
-Real:  B . Prediccion: B
+ Real:  a . Prediccion: a
 Real:  b . Prediccion: b
-Real:  C . Prediccion: C
 Real:  c . Prediccion: c
-Real:  D . Prediccion: D
 Real:  d . Prediccion: d
-Real:  E . Prediccion: E
 Real:  e . Prediccion: e
-Real:  ENE . Prediccion: ENE
 Real:  ene . Prediccion: ene
-Real:  F . Prediccion: F
 Real:  f . Prediccion: d
-Real:  G . Prediccion: G
 Real:  g . Prediccion: g
-Real:  H . Prediccion: H
 Real:  h . Prediccion: h
-Real:  I . Prediccion: I
 Real:  i . Prediccion: i
-Real:  J . Prediccion: J
 Real:  j . Prediccion: j
-Real:  K . Prediccion: K
 Real:  k . Prediccion: k
-Real:  L . Prediccion: L
 Real:  l . Prediccion: l
-Real:  M . Prediccion: M
 Real:  m . Prediccion: m
-Real:  N . Prediccion: N
 Real:  n . Prediccion: n
-Real:  O . Prediccion: O
 Real:  o . Prediccion: o
-Real:  P . Prediccion: P
 Real:  p . Prediccion: p
-Real:  Q . Prediccion: Q
 Real:  q . Prediccion: q
-Real:  R . Prediccion: R
 Real:  r . Prediccion: r
-Real:  S . Prediccion: S
 Real:  s . Prediccion: s
-Real:  T . Prediccion: T
 Real:  t . Prediccion: t
-Real:  U . Prediccion: U
 Real:  u . Prediccion: u
-Real:  V . Prediccion: V
 Real:  v . Prediccion: v
-Real:  W . Prediccion: W
 Real:  w . Prediccion: w
-Real:  X . Prediccion: X
 Real:  x . Prediccion: x
-Real:  Y . Prediccion: Y
 Real:  y . Prediccion: y
-Real:  Z . Prediccion: Z
-Real:  z . Prediccion: z
 
 
-Correctly Classified Instances          53               98.1481 %
-Incorrectly Classified Instances         1                1.8519 %
-Kappa statistic                          0.9811
-Mean absolute error                      0.0357
-Root mean squared error                  0.1327
-Relative absolute error                 98.1501 %
-Root relative squared error             98.4293 %
-Total Number of Instances               54     
+Correctly Classified Instances          25               96.1538 %
+Incorrectly Classified Instances         1                3.8462 %
+Kappa statistic                          0.96  
+Mean absolute error                      0.0353
+Root mean squared error                  0.1322
+Relative absolute error                 98.9629 %
+Root relative squared error             98.9075 %
+Total Number of Instances               26     
 
