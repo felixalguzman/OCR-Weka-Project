@@ -45,6 +45,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,6 +67,7 @@ import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JCheckBox;
 
 public class Principal extends JFrame {
 
@@ -85,7 +87,12 @@ public class Principal extends JFrame {
 	private JRadioButton clasificadorNB;
 	private JRadioButton clasificadorJ48;
 	private JTextArea textArea;
-
+	private JScrollPane scrollPane_1 ;
+	private JCheckBox chckbxMinusculas;
+	private JCheckBox chckbxMayusculas;
+	private String Mayusculas = "Mayusculas Training Images/";
+	private String Minusculas = "Minusculas Training Images/";
+	private String Todas = "Training Images/";
 	/**
 	 * Launch the application.
 	 */
@@ -127,14 +134,14 @@ public class Principal extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Entrenamiento de Imagenes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		tabbedPane.addTab("Entrenamiento", null, panel, null);
-		panel.setLayout(new MigLayout("", "[64px][279.00px][138px][124px]", "[25px][21.00][]"));
+		panel.setLayout(new MigLayout("", "[53px][279px][138px][124px]", "[23px][23px]"));
 
 		JLabel lblDirectorio = new JLabel("Directorio: ");
 		panel.add(lblDirectorio, "cell 0 0,alignx left,aligny center");
 
 		rutaEntrenamiento = new JTextField();
 		rutaEntrenamiento.setEditable(false);
-		panel.add(rutaEntrenamiento, "cell 1 0,growx,aligny center");
+		panel.add(rutaEntrenamiento, "cell 1 0,growx,aligny bottom");
 		rutaEntrenamiento.setColumns(10);
 
 		JButton btnSeleccionar = new JButton("Seleccionar");
@@ -142,6 +149,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				seleccionarCarpetaEntrenamiento();
+				
 			}
 		});
 		panel.add(btnSeleccionar, "cell 2 0,growx,aligny top");
@@ -151,21 +159,78 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 
-				if(rutaEntrenamiento.getText().equalsIgnoreCase(""))
+				if(rutaEntrenamiento.getText().equalsIgnoreCase("") && !chckbxMayusculas.isSelected() && !chckbxMinusculas.isSelected())
 				{
 					vacio = false;
-					JOptionPane.showMessageDialog(null, "Debe elegir la carpeta con imagenes");
+					if(rutaEntrenamiento.getText().equalsIgnoreCase("") &&  (!chckbxMayusculas.isSelected() && !chckbxMinusculas.isSelected()))
+					{
+						JOptionPane.showMessageDialog(null, "Debe elegir la carpeta con imagenes");
+					}
+					else if( !chckbxMayusculas.isSelected() && !chckbxMinusculas.isSelected())
+					{
+						JOptionPane.showMessageDialog(null, "Debe elegir por lo menos 1 tipo de letra");
+					}
+					
 				}
 				else
 				{
 					vacio = true;
-					entrenar(rutaEntrenamiento.getText(), entrenamiento, "Entrenado correctamente");
+					if(chckbxMayusculas.isSelected() && !chckbxMinusculas.isSelected())
+					{
+						entrenar(Mayusculas, entrenamiento, "Entrenado correctamente");
+					}
+					else if(!chckbxMayusculas.isSelected() && chckbxMinusculas.isSelected())
+					{
+						entrenar(Minusculas, entrenamiento, "Entrenado correctamente");
+					}
+					else if(chckbxMayusculas.isSelected() && chckbxMinusculas.isSelected())
+					{
+						entrenar(Todas, entrenamiento, "Entrenado correctamente");
+					}
+					else
+					{
+						entrenar(rutaEntrenamiento.getText(), entrenamiento, "Entrenado correctamente");
+					}
+					
 				}
 
 
 			}
 		});
 		panel.add(btnEntrenar, "cell 3 0,growx,aligny top");
+		
+		chckbxMayusculas = new JCheckBox("Mayusculas");
+		chckbxMayusculas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				if(chckbxMayusculas.isSelected() || chckbxMinusculas.isSelected())
+				{
+					btnSeleccionar.setEnabled(false);
+				}
+				else if(!chckbxMayusculas.isSelected() && !chckbxMinusculas.isSelected())
+				{
+					btnSeleccionar.setEnabled(true);
+				}
+			}
+		});
+		panel.add(chckbxMayusculas, "cell 2 1,alignx left,aligny top");
+		
+		chckbxMinusculas = new JCheckBox("Minusculas");
+		chckbxMinusculas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(chckbxMayusculas.isSelected() || chckbxMinusculas.isSelected())
+				{
+					btnSeleccionar.setEnabled(false);
+				}
+				else if(!chckbxMayusculas.isSelected() && !chckbxMinusculas.isSelected())
+				{
+					btnSeleccionar.setEnabled(true);
+				}
+			}
+		});
+		panel.add(chckbxMinusculas, "cell 3 1,alignx left,aligny top");
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Seleccionar carpeta de imagenes", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -186,20 +251,24 @@ public class Principal extends JFrame {
 
 				if(carpetaImagenesPrueba.getText().equalsIgnoreCase("") ||  (!clasificadorJ48.isSelected() && !clasificadorNB.isSelected() && !classificadorSMO.isSelected()))
 				{
-
-					if(carpetaImagenesPrueba.getText().equalsIgnoreCase(""))
+					
+					if(carpetaImagenesPrueba.getText().equalsIgnoreCase("") && (clasificadorJ48.isSelected() || clasificadorNB.isSelected() || classificadorSMO.isSelected()) )
 					{
 						JOptionPane.showMessageDialog(null, "Debe elegir la carpeta con imagenes");
-
 					}
-					else
+					else if(carpetaImagenesPrueba.getText().equalsIgnoreCase("") && (!clasificadorJ48.isSelected() && !clasificadorNB.isSelected() && !classificadorSMO.isSelected()))
 					{
 						JOptionPane.showMessageDialog(null, "Debe elegir la carpeta con imagenes y  1 clasificador");
+
+					} 
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Debe elegir 1 clasificador");
 					}
 				}
 				else if(clasificadorJ48.isSelected() || clasificadorNB.isSelected() || classificadorSMO.isSelected())
 				{
-					vacio = true;
+					vacio = false;
 					entrenar(carpetaImagenesPrueba.getText(), prueba, "Clasificado correctamente");
 
 
@@ -287,11 +356,13 @@ public class Principal extends JFrame {
 		panel_1.add(panel_3, "cell 0 6 6 1,grow");
 		panel_3.setLayout(null);
 
-		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane_1.setBounds(12, 23, 600, 491);
 		panel_3.add(scrollPane_1);
+		
+		
 
 		textArea = new JTextArea();
 		scrollPane_1.setViewportView(textArea);
@@ -303,7 +374,7 @@ public class Principal extends JFrame {
 		clasificadorNB.setSelected(false);
 		classificadorSMO.setSelected(false);
 		
-		//resize("C:/Users/eric/Desktop/Training Images");
+		//resize("Paints/");
 
 	}
 
@@ -668,13 +739,17 @@ public class Principal extends JFrame {
 
 		resultados += "\n";
 		resultados += eval.toSummaryString(); // Imprime un resumen de los datos (estadisticas)
+		guardarResultados("resultados.txt", resultados);
 		resultados += "\n";
 		resultados += eval.toClassDetailsString(); // Imprime el detalle por clase
 
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
+		
 		//return resultados;*/
-
+		JOptionPane.showMessageDialog(null, "Clasificado correctamente");
+		textArea.setCaretPosition(0);
+	
 	}
 
 
@@ -725,6 +800,8 @@ public class Principal extends JFrame {
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
 		//return resultados;*/
+		JOptionPane.showMessageDialog(null, "Clasificado correctamente");
+		textArea.setCaretPosition(0);
 
 	}
 
@@ -776,7 +853,23 @@ public class Principal extends JFrame {
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
 		//return resultados;*/
+		JOptionPane.showMessageDialog(null, "Clasificado correctamente");
+		textArea.setCaretPosition(0);
 
+	}
+	
+	public void guardarResultados(String ruta, String datos) throws FileNotFoundException
+	{
+		try{
+				PrintWriter writer = new PrintWriter(ruta, "UTF-8");
+				writer.println(datos);
+				writer.close();
+			} catch (IOException e) {
+				// do something
+			}
+		
+		
+		
 	}
 
 	public  BufferedReader readDatafile(String ruta){
