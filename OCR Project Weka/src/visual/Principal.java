@@ -569,7 +569,7 @@ public class Principal extends JFrame {
 
 	}
 
-	private static BufferedImage reducirGrises(BufferedImage img) {
+	private static BufferedImage metodoOtsu(BufferedImage img) {
 
 		int red;
 		int newPixel;
@@ -693,7 +693,7 @@ public class Principal extends JFrame {
 
 		img = resize(img,80,80);
 		img = escalaGrises(img);
-		img = reducirGrises(img);
+		img = metodoOtsu(img);
 
 		byte[][] pixels = new byte[img.getWidth()][];
 		int[] intArray = new int[img.getWidth()*img.getHeight()];
