@@ -701,7 +701,7 @@ public class Principal extends JFrame {
 		return intArray;
 	}
 
-	@SuppressWarnings({ "rawtypes", "deprecation", "unchecked" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static FastVector crearARFF(int[] arr, String ruta){
 		//1. Inicializar los atributos
 		// Declaracion de atributo nominal y sus posibles valores
@@ -756,7 +756,7 @@ public class Principal extends JFrame {
 		return data;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Instance insertarInstancia(int[] arr,String clase, Instances data){
 		Instance inst1 = new DenseInstance(arr.length+1);
 		String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ene", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};

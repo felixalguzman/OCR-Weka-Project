@@ -19,7 +19,8 @@ public class AttTest {
 	
 
   
-  public void crearARFF()
+  @SuppressWarnings({ "rawtypes", "unused", "unchecked" })
+public void crearARFF()
   {
 	  FastVector atributos = new FastVector(3);
 		 

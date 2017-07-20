@@ -1,12 +1,10 @@
 package logical;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import visual.MainWindow;
 
 public class Main {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
 		MainWindow m = new MainWindow();

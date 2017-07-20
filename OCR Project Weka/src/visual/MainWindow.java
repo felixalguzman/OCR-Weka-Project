@@ -9,14 +9,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.FastVector;
@@ -25,11 +21,12 @@ import weka.core.Instances;
 import weka.core.converters.ArffLoader.ArffReader;
 
 
+@SuppressWarnings("deprecation")
 public class MainWindow extends JFrame {
 	/**
 	 * 
 	 */
-	private final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private Instances data = null;
 	private static String entrenamiento = "prueba.arff";
 
@@ -138,7 +135,7 @@ public class MainWindow extends JFrame {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "deprecation", "unchecked" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static FastVector crearARFF(int[] arr){
 		//1. Inicializar los atributos
 		// Declaracion de atributo nominal y sus posibles valores
@@ -196,6 +193,7 @@ public class MainWindow extends JFrame {
 		return data;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Instance insertarInstancia(int[] arr,String clase, Instances data){
 		Instance inst1 = new DenseInstance(arr.length+1);
 		String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ene", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
