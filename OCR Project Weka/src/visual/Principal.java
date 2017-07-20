@@ -30,6 +30,7 @@ import weka.core.converters.ConverterUtils.DataSource;
 import weka.gui.beans.Classifier;
 
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.GridBagConstraints;
 
 
@@ -149,7 +150,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				seleccionarCarpetaEntrenamiento();
-				
+
 			}
 		});
 		panel.add(btnSeleccionar, "cell 2 0,growx,aligny top");
@@ -170,7 +171,7 @@ public class Principal extends JFrame {
 					{
 						JOptionPane.showMessageDialog(null, "Debe elegir por lo menos 1 tipo de letra");
 					}
-					
+
 				}
 				else
 				{
@@ -191,19 +192,19 @@ public class Principal extends JFrame {
 					{
 						entrenar(rutaEntrenamiento.getText(), entrenamiento, "Entrenado correctamente");
 					}
-					
+
 				}
 
 
 			}
 		});
 		panel.add(btnEntrenar, "cell 3 0,growx,aligny top");
-		
+
 		chckbxMayusculas = new JCheckBox("Mayusculas");
 		chckbxMayusculas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
+
+
 				if(chckbxMayusculas.isSelected() || chckbxMinusculas.isSelected())
 				{
 					btnSeleccionar.setEnabled(false);
@@ -215,11 +216,11 @@ public class Principal extends JFrame {
 			}
 		});
 		panel.add(chckbxMayusculas, "cell 2 1,alignx left,aligny top");
-		
+
 		chckbxMinusculas = new JCheckBox("Minusculas");
 		chckbxMinusculas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if(chckbxMayusculas.isSelected() || chckbxMinusculas.isSelected())
 				{
 					btnSeleccionar.setEnabled(false);
@@ -251,7 +252,7 @@ public class Principal extends JFrame {
 
 				if(carpetaImagenesPrueba.getText().equalsIgnoreCase("") ||  (!clasificadorJ48.isSelected() && !clasificadorNB.isSelected() && !classificadorSMO.isSelected()))
 				{
-					
+
 					if(carpetaImagenesPrueba.getText().equalsIgnoreCase("") && (clasificadorJ48.isSelected() || clasificadorNB.isSelected() || classificadorSMO.isSelected()) )
 					{
 						JOptionPane.showMessageDialog(null, "Debe elegir la carpeta con imagenes");
@@ -361,8 +362,8 @@ public class Principal extends JFrame {
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane_1.setBounds(12, 23, 600, 491);
 		panel_3.add(scrollPane_1);
-		
-		
+
+
 
 		textArea = new JTextArea();
 		scrollPane_1.setViewportView(textArea);
@@ -373,18 +374,18 @@ public class Principal extends JFrame {
 		clasificadorJ48.setSelected(false);
 		clasificadorNB.setSelected(false);
 		classificadorSMO.setSelected(false);
-		
-		
+
+
 		//resize("C:/Users/eric/Desktop/RECONVERTIR");
 
 	}
-
+	/*
 	public void CreateResizeImage(String path){
 		File f = new File(path);
 		File f2 = null;
 		BufferedImage  bffImg= null;
 		try {
-			bffImg = scale(ImageIO.read(f),40,40);
+			bffImg = escala(ImageIO.read(f),80,80);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -392,9 +393,52 @@ public class Principal extends JFrame {
 		try {
 			ImageIO.write(bffImg,"png",f2);
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
+	}*/
+
+	private static BufferedImage escalaGrises(BufferedImage img) {
+
+		int alpha, red, green, blue;
+		int newPixel;
+
+		BufferedImage lum = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
+
+		for(int i=0; i<img.getWidth(); i++) {
+			for(int j=0; j<img.getHeight(); j++) {
+
+				// Get pixels by R, G, B
+				alpha = new Color(img.getRGB(i, j)).getAlpha();
+				red = new Color(img.getRGB(i, j)).getRed();
+				green = new Color(img.getRGB(i, j)).getGreen();
+				blue = new Color(img.getRGB(i, j)).getBlue();
+
+				red = (int) (0.21 * red + 0.71 * green + 0.07 * blue);
+				// Return back to img format
+				newPixel = colorToRGB(alpha, red, red, red);
+
+				// Write pixels into image
+				lum.setRGB(i, j, newPixel);
+
+			}
+		}
+
+		return lum;
+
+	}
+
+	private static int colorToRGB(int alpha, int red, int green, int blue) {
+
+		int newPixel = 0;
+		newPixel += alpha;
+		newPixel = newPixel << 8;
+		newPixel += red; newPixel = newPixel << 8;
+		newPixel += green; newPixel = newPixel << 8;
+		newPixel += blue;
+
+		return newPixel;
+
 	}
 
 	public void clasificadoresJ()
@@ -468,6 +512,7 @@ public class Principal extends JFrame {
 
 	}
 
+	/*
 	public void resize(String ruta){
 		File dir = new File(ruta);
 		File[] directoryListing = dir.listFiles();
@@ -482,7 +527,7 @@ public class Principal extends JFrame {
 		}
 
 
-	}
+	}*/
 
 
 	public void entrenar(String ruta, String lugarGuardar, String mensaje){
@@ -492,29 +537,23 @@ public class Principal extends JFrame {
 		if (directoryListing != null) {
 			int imageIndex =0;
 
-
 			for (File child : directoryListing) {
 				System.out.println("Arreglo de bits de la imagen "+imageIndex+"\n");
-				//imprimirArreglo(getBinaryFromImage(child));
-				//System.out.println("\n\n\n");
-
-
+				
 				if(imageIndex == 0){
-					//data = new Instances("Objeto de instancias", crearARFF(getBinaryFromImage(child)),0);
-
-					crearARFF(getBinaryFromImage(child), lugarGuardar);
+					
+					crearARFF(convertirBinario(child), lugarGuardar);
 					try {
 						data = cargarARFF(entrenamiento, directoryListing.length);
 
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 				}
 				imageIndex++;
-				//System.out.println("Clase " + obtenerClase(child));
-				data.add(insertarInstancia(getBinaryFromImage(child), obtenerClase(child), data));
-
+				
+				data.add(insertarInstancia(convertirBinario(child), obtenerClase(child), data));
 			}
 
 			guardarARFF(data, lugarGuardar);
@@ -530,7 +569,100 @@ public class Principal extends JFrame {
 
 	}
 
-	public   BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+	private static BufferedImage reducirGrises(BufferedImage img) {
+
+		int red;
+		int newPixel;
+
+		int threshold = segmentarImagen(img);
+
+		BufferedImage binarized = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
+
+
+
+		for(int i=0; i<img.getWidth(); i++)
+		{
+			for(int j=0; j<img.getHeight(); j++) 
+			{
+
+				red = new Color(img.getRGB(i, j)).getRed();
+				int alpha = new Color(img.getRGB(i, j)).getAlpha();
+				
+				if(red > threshold) 
+				{
+					newPixel = 255;
+				}
+				else 
+				{
+					newPixel = 0;
+				}
+				
+				newPixel = colorToRGB(alpha, newPixel, newPixel, newPixel);
+				binarized.setRGB(i, j, newPixel); 
+
+			}
+		}
+
+		return binarized;
+
+	}
+
+	private static int segmentarImagen(BufferedImage img) {
+
+		int[] histogram = realizarHistograma(img);
+		int total = img.getHeight() * img.getWidth();
+
+		float sum = 0;
+		for(int i=0; i<256; i++) sum += i * histogram[i];
+
+		float sumB = 0;
+		int wB = 0;
+		int wF = 0;
+
+		float varMax = 0;
+		int threshold = 0;
+
+		for(int i=0 ; i<256 ; i++) {
+			wB += histogram[i];
+			if(wB == 0) continue;
+			wF = total - wB;
+
+			if(wF == 0) break;
+
+			sumB += (float) (i * histogram[i]);
+			float mB = sumB / wB;
+			float mF = (sum - sumB) / wF;
+
+			float varBetween = (float) wB * (float) wF * (mB - mF) * (mB - mF);
+
+			if(varBetween > varMax) {
+				varMax = varBetween;
+				threshold = i;
+			}
+		}
+
+		return threshold;
+
+	}
+
+	public static int[] realizarHistograma(BufferedImage input) {
+
+		int[] histogram = new int[256];
+
+		for(int i=0; i<histogram.length; i++) histogram[i] = 0;
+
+		for(int i=0; i<input.getWidth(); i++) {
+			for(int j=0; j<input.getHeight(); j++) {
+				int red = new Color(input.getRGB (i, j)).getRed();
+				histogram[red]++;
+			}
+		}
+
+		return histogram;
+
+	}
+	/*
+	public   BufferedImage escala(BufferedImage imageToScale, int dWidth, int dHeight) {
 		BufferedImage scaledImage = null;
 		if (imageToScale != null) {
 			scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
@@ -539,16 +671,29 @@ public class Principal extends JFrame {
 			graphics2D.dispose();
 		}
 		return scaledImage;
+	}*/
+
+	private static BufferedImage resize(BufferedImage img, int newW, int newH) {
+		Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+		BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+		Graphics2D g2d = dimg.createGraphics();
+		g2d.drawImage(tmp, 0, 0, null);
+		g2d.dispose();
+		return dimg;
 	}
 
-	public int[] getBinaryFromImage(File imageFile){
+
+	public int[] convertirBinario(File imageFile){
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(imageFile);
 		} catch (IOException e) {
 		}
 
-		img = scale(img,40,40);
+		img = resize(img,80,80);
+		img = escalaGrises(img);
+		img = reducirGrises(img);
 
 		byte[][] pixels = new byte[img.getWidth()][];
 		int[] intArray = new int[img.getWidth()*img.getHeight()];
@@ -562,11 +707,11 @@ public class Principal extends JFrame {
 			}
 			System.out.println("\n");
 		}
-		intArray = byteArrayToIntArray(pixels, img.getWidth(), img.getHeight());
+		intArray = arregloBytes_a_arregloInt(pixels, img.getWidth(), img.getHeight());
 		return intArray;
 	}
 
-	public int[] byteArrayToIntArray(byte[][] byteMatrix,int width,int heigt){
+	public int[] arregloBytes_a_arregloInt(byte[][] byteMatrix,int width,int heigt){
 		int[] intArray = new int[width*heigt];
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < heigt; y++) {
@@ -603,13 +748,10 @@ public class Principal extends JFrame {
 		letra.appendElements(Arrays.asList(alphabetMayuscula));
 		letra.appendElements(Arrays.asList(alphabetMinuscula));
 
-
 		Attribute ClassAttribute = new Attribute("Letra", letra);
-
 		att.add(ClassAttribute);
 		//2.Crear objeto con las instancias
 		Instances data = new Instances("Objeto de Instancias", att, 0);
-
 
 		System.out.println(data.attribute(0));
 
@@ -618,7 +760,7 @@ public class Principal extends JFrame {
 			writer.println(data);
 			writer.close();
 		} catch (IOException e) {
-			// do something
+			
 		}
 
 		return att;
@@ -648,13 +790,9 @@ public class Principal extends JFrame {
 		for(int i =0; i < arr.length; i++)
 		{
 			inst1.setValue(i, arr[i]);
-
 		}
 
-
 		inst1.setValue(arr.length, clase);
-
-
 		return inst1;
 	}
 
@@ -665,31 +803,25 @@ public class Principal extends JFrame {
 			writer.println(data);
 			writer.close();
 		} catch (IOException e) {
-			// do something
+			System.out.println(e);
 		}
 	}
 
 	public String obtenerClase(File f ){
 		String clase = null;
-		//System.out.println(f.getName());
 
 		if(f.getName().substring(0, 3).equals("ENE") )
 		{
 			clase = "ENE";
-			//	System.out.println(clase);
 		}
 		else if(f.getName().substring(0, 3).equals("ene") )
 		{
 			clase = "ene";
-			//	System.out.println(clase);
 		}
 		else
 		{
 			clase = f.getName().substring(0,1);
-			//	System.out.println(clase);
 		}
-
-
 
 		return clase;
 	}
@@ -697,17 +829,13 @@ public class Principal extends JFrame {
 	public void predecirCaracteresSMO() throws Exception
 	{
 
-		BufferedReader datafile = readDatafile(entrenamiento);
-
-
+		BufferedReader datafile = leerARFF(entrenamiento);
 		DataSource source = new DataSource(entrenamiento);
 		Instances data = source.getDataSet();
 		data.setClassIndex(data.numAttributes() -1);
 
 		SMO smo = new SMO();
-
 		smo.buildClassifier(data);
-
 
 		DataSource source1 = new DataSource(prueba);
 		Instances pruebadataset = source1.getDataSet();
@@ -716,8 +844,6 @@ public class Principal extends JFrame {
 		Evaluation eval = new Evaluation(data);
 		eval.evaluateModel(smo, pruebadataset);
 
-
-
 		String resultados = "";
 		resultados += "\nResultados \n=========================\n";
 		resultados += "Clase Actual, Prediccion del SMO\n ";
@@ -725,11 +851,8 @@ public class Principal extends JFrame {
 		for(int i =0; i < pruebadataset.numInstances(); i++)
 		{
 			double valorActual = pruebadataset.instance(i).classValue();
-
 			Instance nuevaInstancia = pruebadataset.instance(i);
-
 			double predSMO = smo.classifyInstance(nuevaInstancia);
-
 			resultados += "Real:  " + pruebadataset.classAttribute().value((int)pruebadataset.instance(i).classValue()) + " . Prediccion: " + pruebadataset.classAttribute().value((int)predSMO) + "\n";
 		}
 
@@ -741,26 +864,23 @@ public class Principal extends JFrame {
 
 		//resultados += eval.toMatrixString(); // Imprime la matriz de confusion
 		textArea.setText(resultados);
-		
+
 		//return resultados;*/
 		JOptionPane.showMessageDialog(null, "Clasificado correctamente");
 		textArea.setCaretPosition(0);
-	
+
 	}
 
 
 	public void predecirCaracteresJ48() throws Exception
 	{
 
-		BufferedReader datafile = readDatafile(entrenamiento);
-
-
+		BufferedReader datafile = leerARFF(entrenamiento);
 		DataSource source = new DataSource(entrenamiento);
 		Instances data = source.getDataSet();
 		data.setClassIndex(data.numAttributes() -1);
 
 		J48 j = new J48();
-
 		j.buildClassifier(data);
 
 
@@ -771,8 +891,6 @@ public class Principal extends JFrame {
 		Evaluation eval = new Evaluation(data);
 		eval.evaluateModel(j, pruebadataset);
 
-
-
 		String resultados = "";
 		resultados += "\nResultados \n=========================\n";
 		resultados += "Clase Actual, Prediccion del J48\n ";
@@ -780,11 +898,8 @@ public class Principal extends JFrame {
 		for(int i =0; i < pruebadataset.numInstances(); i++)
 		{
 			double valorActual = pruebadataset.instance(i).classValue();
-
 			Instance nuevaInstancia = pruebadataset.instance(i);
-
 			double predSMO = j.classifyInstance(nuevaInstancia);
-
 			resultados += "Real:  " + pruebadataset.classAttribute().value((int)pruebadataset.instance(i).classValue()) + " . Prediccion: " + pruebadataset.classAttribute().value((int)predSMO) + "\n";
 		}
 
@@ -805,15 +920,12 @@ public class Principal extends JFrame {
 	public void predecirCaracteresNB() throws Exception
 	{
 
-		BufferedReader datafile = readDatafile(entrenamiento);
-
-
+		BufferedReader datafile = leerARFF(entrenamiento);
 		DataSource source = new DataSource(entrenamiento);
 		Instances data = source.getDataSet();
 		data.setClassIndex(data.numAttributes() -1);
 
 		NaiveBayes nb = new NaiveBayes();
-
 		nb.buildClassifier(data);
 
 
@@ -824,8 +936,6 @@ public class Principal extends JFrame {
 		Evaluation eval = new Evaluation(data);
 		eval.evaluateModel(nb, pruebadataset);
 
-
-
 		String resultados = "";
 		resultados += "\nResultados \n=========================\n";
 		resultados += "Clase Actual, Prediccion del Naive Bayes\n ";
@@ -833,11 +943,8 @@ public class Principal extends JFrame {
 		for(int i =0; i < pruebadataset.numInstances(); i++)
 		{
 			double valorActual = pruebadataset.instance(i).classValue();
-
 			Instance nuevaInstancia = pruebadataset.instance(i);
-
 			double predSMO = nb.classifyInstance(nuevaInstancia);
-
 			resultados += "Real:  " + pruebadataset.classAttribute().value((int)pruebadataset.instance(i).classValue()) + " . Prediccion: " + pruebadataset.classAttribute().value((int)predSMO) + "\n";
 		}
 
@@ -853,24 +960,21 @@ public class Principal extends JFrame {
 		textArea.setCaretPosition(0);
 
 	}
-	
+
 	public void guardarResultados(String ruta, String datos) throws FileNotFoundException
 	{
 		try{
-				PrintWriter writer = new PrintWriter(ruta, "UTF-8");
-				writer.println(datos);
-				writer.close();
-			} catch (IOException e) {
-				// do something
-			}
-		
-		
-		
+			PrintWriter writer = new PrintWriter(ruta, "UTF-8");
+			writer.println(datos);
+			writer.close();
+		} catch (IOException e) {
+			
+		}
 	}
-	
-    
 
-	public  BufferedReader readDatafile(String ruta){
+
+
+	public  BufferedReader leerARFF(String ruta){
 		BufferedReader inputreader = null;
 
 		try{
@@ -880,5 +984,5 @@ public class Principal extends JFrame {
 		}
 		return inputreader;
 	}
-	
+
 }
