@@ -1,19 +1,15 @@
 package visual;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.Timer;
-import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import net.miginfocom.swing.MigLayout;
 import weka.classifiers.bayes.NaiveBayes;
@@ -27,13 +23,7 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader.ArffReader;
 import weka.core.converters.ConverterUtils.DataSource;
-import weka.gui.beans.Classifier;
-
-import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.GridBagConstraints;
-
-
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -41,7 +31,6 @@ import javax.swing.border.TitledBorder;
 
 
 
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -52,26 +41,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.sun.xml.internal.ws.client.ContentNegotiation;
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JProgressBar;
 import javax.swing.UIManager;
 import java.awt.Color;
-import java.awt.Dimension;
-
 import javax.swing.JRadioButton;
-import java.awt.FlowLayout;
-import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JCheckBox;
 
+@SuppressWarnings("deprecation")
 public class Principal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField carpetaImagenesPrueba;
 	private File defaultlocation = new File(".");
@@ -296,7 +280,7 @@ public class Principal extends JFrame {
 						}
 
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
+						
 						e1.printStackTrace();
 					}
 				}
@@ -376,7 +360,7 @@ public class Principal extends JFrame {
 		classificadorSMO.setSelected(false);
 
 
-		//resize("C:/Users/eric/Desktop/RECONVERTIR");
+		
 
 	}
 	/*
@@ -557,10 +541,8 @@ public class Principal extends JFrame {
 			}
 
 			guardarARFF(data, lugarGuardar);
-		} else {
-
-
-		}
+		} 
+		
 		if(vacio)
 		{
 			JOptionPane.showMessageDialog(null, mensaje);
@@ -573,12 +555,9 @@ public class Principal extends JFrame {
 
 		int red;
 		int newPixel;
-
 		int threshold = segmentarImagen(img);
 
 		BufferedImage binarized = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
-
-
 
 		for(int i=0; i<img.getWidth(); i++)
 		{
@@ -686,6 +665,7 @@ public class Principal extends JFrame {
 
 	public int[] convertirBinario(File imageFile){
 		BufferedImage img = null;
+		
 		try {
 			img = ImageIO.read(imageFile);
 		} catch (IOException e) {
@@ -707,11 +687,11 @@ public class Principal extends JFrame {
 			}
 			System.out.println("\n");
 		}
-		intArray = arregloBytes_a_arregloInt(pixels, img.getWidth(), img.getHeight());
+		intArray = arregloBytesaInt(pixels, img.getWidth(), img.getHeight());
 		return intArray;
 	}
 
-	public int[] arregloBytes_a_arregloInt(byte[][] byteMatrix,int width,int heigt){
+	public int[] arregloBytesaInt(byte[][] byteMatrix,int width,int heigt){
 		int[] intArray = new int[width*heigt];
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < heigt; y++) {
@@ -721,6 +701,7 @@ public class Principal extends JFrame {
 		return intArray;
 	}
 
+	@SuppressWarnings({ "rawtypes", "deprecation", "unchecked" })
 	public static FastVector crearARFF(int[] arr, String ruta){
 		//1. Inicializar los atributos
 		// Declaracion de atributo nominal y sus posibles valores
@@ -775,6 +756,7 @@ public class Principal extends JFrame {
 		return data;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
 	public Instance insertarInstancia(int[] arr,String clase, Instances data){
 		Instance inst1 = new DenseInstance(arr.length+1);
 		String[] alphabetMinuscula = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n","ene", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
@@ -826,6 +808,7 @@ public class Principal extends JFrame {
 		return clase;
 	}
 
+	@SuppressWarnings("unused")
 	public void predecirCaracteresSMO() throws Exception
 	{
 
@@ -872,6 +855,7 @@ public class Principal extends JFrame {
 	}
 
 
+	@SuppressWarnings("unused")
 	public void predecirCaracteresJ48() throws Exception
 	{
 
@@ -917,6 +901,7 @@ public class Principal extends JFrame {
 	}
 
 
+	@SuppressWarnings("unused")
 	public void predecirCaracteresNB() throws Exception
 	{
 
